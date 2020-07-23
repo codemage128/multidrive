@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap 4 Website Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <style>
+        .fakeimg {
+            height: 200px;
+            background: #aaa;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/home/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/home/setting">Setting</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container" style="margin-top:30px">
+    <div class="row">
+        <div class="offset-2 col-8">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <h4>Setting</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form class="row" action="/home/save/" method="post">
+                        {% csrf_token %}
+                        <div class="offset-2 col-8">
+                            {% if success == True %}
+                                <div class="alert alert-success">
+                                    Saved!
+                                </div>
+                            {% elif success == False %}
+                                <div class="alert alert-danger">
+                                    Failed!
+                                </div>
+                            {% endif %}
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" value="{{ setting.dropbox }}"
+                                       placeholder="Enter type the access token of the dropbox" name="dropbox">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">Dropbox</span>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Access Token" name="g_access_token" value="{{ setting.google_token }}" />
+                                <input type="text" class="form-control" placeholder="Project ID" name="g_projectId" value="{{ setting.google_projectid }}" />
+                                <div class="input-group-append">
+                                    <span class="input-group-text">Google Driver</span>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Tenent ID" name="o_tenent" value="{{ setting.one_tenant }}" >
+                                <input type="text" class="form-control" placeholder="Client ID" name="o_client" value="{{ setting.one_client }}" >
+                                <input type="text" class="form-control" placeholder="Client Security" name="o_security" value="{{ setting.one_security }}" >
+                                <div class="input-group-append">
+                                    <span class="input-group-text">One Driver</span>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success mt-4">Save Setting</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
